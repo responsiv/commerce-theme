@@ -1,0 +1,90 @@
+<ul class="list-group list-group-flush">
+    <li class="list-group-item px-0">
+        <div class="row align-items-center">
+            <div class="col-7">
+                <span>Product</span>
+            </div>
+            <div class="col-3 text-center">
+                <span>Quantity</span>
+            </div>
+            <div class="col-2 text-lg-end text-start text-md-end">
+                <span>Total</span>
+            </div>
+        </div>
+    </li>
+    {% for item in items %}
+        {% set product = item.product %}
+        <li class="list-group-item py-3 py-lg-0 px-0 border-top">
+            <div class="row align-items-center">
+                <div class="col-3 col-md-2">
+                    <a href="{{ product.pageUrl('shop/product') }}">
+                        {% if product.images %}
+                            <img class="img-fluid" src="{{ product.images.first|resize(0, 100, { mode: 'auto' }) }}" alt="{{ product.name }}" />
+                        {% else %}
+                            <img src="{{ 'assets/images/default-post.png'|theme }}" height="100" />
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="col-4 col-md-5 py-2">
+                    <a href="{{ product.pageUrl('shop/product') }}" class="text-inherit">
+                        <h5 class="mb-2">{{ product.name }}</h5>
+                    </a>
+
+                    {% for option in item.options %}
+                        {{ option.name }}: {{ option.value }}{{ not loop.last ? ', ' : '<br />' }}
+                    {% endfor %}
+
+                    {% for extra in item.extras %}
+                       + {{ extra.description }}<br />
+                    {% endfor %}
+
+                    {% if item.final_discount > 0 %}
+                        <span class="text-success small">{{ (item.final_price - item.final_discount)|currency }}</span>
+                        <span class="text-decoration-line-through text-muted small">{{ item.final_price|currency }}</span>
+                    {% else %}
+                        <span class="text-success small">{{ item.final_price|currency }}</span>
+                    {% endif %}
+                </div>
+                <div class="col-3">
+                    <div data-control="quantity-input" class="input-group control-quantity-input">
+                        <input type="button" value="-" class="btn btn-sm button-minus ms-auto" />
+                        <input
+                            class="quantity-field form-input form-control-sm"
+                            type="number"
+                            step="1"
+                            min="1"
+                            max="10"
+                            name="item_quantity[{{ item.key }}]"
+                            value="{{ item.quantity }}" />
+                        <input type="button" value="+" class="btn btn-sm button-plus me-auto" />
+                    </div>
+                    <div class="mt-2 small text-center">
+                        <a
+                            href="javascript:;"
+                            data-request="onRemoveFromCart"
+                            data-request-confirm="Remove this item from your cart?"
+                            data-request-data="{ key: '{{ item.key }}' }"
+                            data-request-update="{ 'shop/cart-view': '#cartPartial', 'shop/mini-cart': '#miniCart' }"
+                            class="text-decoration-none text-inherit">
+                            <i class="bi bi-trash3"></i>
+                            <span class="text-muted">Remove</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-2 text-lg-end text-start text-md-end col-md-2">
+                    <span>{{ item.final_line_price|currency }}</span>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+    <li class="list-group-item py-3 px-0 border-top">
+        <div class="row align-items-center">
+            <div class="col-9 text-end">
+                <span>Subtotal</span>
+            </div>
+            <div class="col-3 text-lg-end text-start text-md-end">
+                <span class="fw-bold fs-5">{{ cart.totalPrice|currency({ format: 'long' }) }}</span>
+            </div>
+        </div>
+    </li>
+</ul>

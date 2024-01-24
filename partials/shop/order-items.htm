@@ -1,0 +1,57 @@
+<ul class="list-group list-group-flush">
+    <li class="list-group-item">
+        <div class="row align-items-center">
+            <div class="col-7">
+                <span>Product</span>
+            </div>
+            <div class="col-3 text-center">
+                <span>Quantity</span>
+            </div>
+            <div class="col-2 text-lg-end text-start text-md-end col-md-2">
+                <span>Total</span>
+            </div>
+        </div>
+    </li>
+    {% for item in items %}
+        {% set product = item.product %}
+        <li class="list-group-item py-3 py-lg-0 border-top">
+            <div class="row align-items-center py-3">
+                <div class="col-3 col-md-2">
+                    <a href="{{ product.pageUrl('shop/product') }}">
+                        {% if product.images %}
+                            <img class="img-fluid" src="{{ product.images.first|resize(0, 100, { mode: 'auto' }) }}" alt="{{ product.name }}" />
+                        {% else %}
+                            <img src="{{ 'assets/images/default-post.png'|theme }}" height="100" />
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="col-4 col-md-5">
+                    <a href="{{ product.pageUrl('shop/product') }}" class="text-inherit">
+                        <h5 class="mb-2">{{ product.name }}</h5>
+                    </a>
+
+                    <span class="text-success small">{{ item.unit_total_price|currency }}</span>
+                    {% if item.discount %}
+                        <span class="text-decoration-line-through text-muted small">{{ item.single_price|currency }}</span>
+                    {% endif %}
+                </div>
+                <div class="col-3 text-center">
+                    {{ item.quantity }}
+                </div>
+                <div class="col-2 text-lg-end text-start text-md-end col-md-2">
+                    <span>{{ item.total_price|currency }}</span>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+    <li class="list-group-item py-3 border-top">
+        <div class="row align-items-center">
+            <div class="col-9 text-end">
+                <span>Subtotal</span>
+            </div>
+            <div class="col-3 text-lg-end text-start text-md-end">
+                <span class="fw-bold fs-5">{{ order.total|currency({ format: 'long' }) }}</span>
+            </div>
+        </div>
+    </li>
+</ul>

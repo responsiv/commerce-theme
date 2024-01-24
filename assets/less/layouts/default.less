@@ -1,0 +1,98 @@
+@import "../theme/boot";
+
+//
+// Default Layout (All pages)
+//
+#layout-banner {
+    font-size: .875rem;
+    padding: .3rem 0;
+    color: #5c6c75;
+}
+
+#layout-header {
+    background: white;
+    .navbar-brand {
+        padding: 1.5rem 0;
+    }
+
+    > .container > .row {
+        min-height: 42px;
+    }
+
+    .header-toolbar-search {
+        max-width: 275px;
+    }
+
+    .header-toolbar-item {
+        line-height: 1;
+        .badge {
+            position: absolute;
+            top: 0;
+            left: 120%;
+        }
+    }
+}
+
+#layout-nav {
+    height: 65px;
+    background: linear-gradient(102.01deg, #DB6A26 0.3%, #DBB326 106.31%);
+    padding: 0 15px;
+
+    > .navbar-container {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+#layout-content {
+    background: #fff;
+
+    .container-padded {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    header {
+        padding: 0 0 30px 0;
+    }
+}
+
+ul.list-with-ticks {
+    padding: 0;
+
+    li {
+        list-style: none;
+        position: relative;
+        padding-left: 23px;
+
+        &:before {
+            content: '';
+            display: block;
+            width: 15px;
+            height: 15px;
+            background: url('@{assets-url}/images/icons/icon-tick.png') no-repeat 0 0;
+            background-size: 15px 15px;
+            position: absolute;
+            left: 0;
+            top: 6px;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+html[data-turbo-preview] .fade-in-content {
+    opacity: 0;
+}
+
+html:not([data-turbo-preview]) .fade-in-content {
+    animation: fadeIn 0.15s ease-in-out;
+}

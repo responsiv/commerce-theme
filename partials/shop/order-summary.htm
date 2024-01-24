@@ -1,0 +1,84 @@
+<ul class="list-group list-group-flush">
+    {% for item in items %}
+        {% set product = item.product %}
+        {% set images = product.images %}
+        <li class="list-group-item px-4 py-3">
+            <div class="row align-items-center">
+                <div class="col-3">
+                    <div class="position-relative">
+                        {% if images is not empty %}
+                            <img class="img-fluid" src="{{ images.first|resize(0, 100, { mode: 'auto' }) }}" alt="{{ product.name }}" />
+                        {% else %}
+                            <img class="img-fluid" src="{{ 'assets/images/default-post.png'|theme }}" height="100" />
+                        {% endif %}
+                        <span class="translate-middle badge rounded-pill bg-secondary position-absolute top-0 start-100 fw-normal">
+                            {{ item.quantity }}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <h5 class="mb-1">
+                        {{ product.name }}
+                    </h5>
+                    <div class="small">
+                        {% for option in item.options %}
+                            {{ option.name }}: {{ option.value }}{{ not loop.last ? ', ' : '<br />' }}
+                        {% endfor %}
+
+                        {% for extra in item.extras %}
+                            + {{ extra.description }}<br />
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-3 text-end small">
+                    <span>
+                        {{ item.final_line_price|currency }}
+                    </span>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+
+<div class="card">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between small">
+            <div class="me-auto">
+                <div>Subtotal</div>
+            </div>
+            <span>
+                {# {{ order.subtotal|currency }} #}
+                {{ order.final_subtotal|currency }}
+            </span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center small">
+            <div class="me-auto">
+                <div>Shipping</div>
+            </div>
+            {% if hasShippingAddress %}
+                <span>{{ order.final_shipping_quote|currency }}</span>
+            {% else %}
+                <small class="text-muted">Enter address</small>
+            {% endif %}
+        </li>
+        {#
+        {% for tax in order.all_taxes %}
+            <li class="list-group-item d-flex justify-content-between small">
+                <div class="me-auto">
+                    <div>{{ tax.name }}</div>
+                </div>
+                <span>{{ tax.total|currency }}</span>
+            </li>
+        {% endfor %}
+        #}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="me-auto">
+                <div class="fw-bold">Total</div>
+            </div>
+            <span class="fw-bold fs-5">{{ order.total|currency }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between small">
+            <small>Includes {{ order.total_tax|currency }} in taxes</small>
+        </li>
+    </ul>
+</div>

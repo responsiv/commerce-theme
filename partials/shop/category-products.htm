@@ -1,0 +1,62 @@
+{% if post('sorting') %}
+    {% do this.session.put('cat_sorting_' ~ category.id, post('sorting')) %}
+{% endif %}
+{% if post('view_mode') %}
+    {% do this.session.put('cat_view_' ~ category.id, post('view_mode')) %}
+{% endif %}
+
+{% set sortingPreference = this.session.get('cat_sorting_' ~ category.id, 'name') %}
+{% set viewMode = this.session.get('cat_view_' ~ category.id, 'list') %}
+
+{% set sortingOptions = {
+    name: 'Name',
+    'price desc': 'Price (high to low)',
+    'price asc': 'Price (low to high)'
+} %}
+{% set viewModeOptions = {
+    list: 'bi bi-list-ul',
+    grid: 'bi bi-grid'
+} %}
+
+<div class="category-products">
+    <form>
+        {% set products = category.listProducts({ sorting: sortingPreference }) %}
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="flex-grow-1">
+                <p class="m-0">Found <strong>{{ products.total }}</strong> products</p>
+            </div>
+            <div>
+                {% for optionKey, optionName in viewModeOptions %}
+                    <a
+                        href="javascript:;"
+                        class="{{ viewMode == optionKey ? 'active' : 'text-muted' }} text-decoration-none me-3"
+                        data-request="onAjax"
+                        data-request-update="{ _self: true }"
+                        data-request-data="{ view_mode: '{{ optionKey }}' }">
+                        <i class="{{ optionName }}"></i>
+                    </a>
+                {% endfor %}
+            </div>
+            <div>
+                <select
+                    class="form-select"
+                    name="sorting"
+                    data-request="onAjax"
+                    data-request-update="{ _self: true }">
+                    {% for optionKey, optionName in sortingOptions %}
+                        <option value="{{ optionKey }}" {{ sortingPreference == optionKey ? 'selected' : '' }}>{{ optionName }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div>
+            {% partial 'shop/product-list' products=products viewMode=viewMode %}
+        </div>
+
+        <div>
+            {{ ajaxPager(products) }}
+        </div>
+    </form>
+</div>

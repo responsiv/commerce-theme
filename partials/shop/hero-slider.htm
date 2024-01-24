@@ -1,0 +1,12 @@
+<div data-control="card-slider" class="control-card-slider">
+    {% for defaultImage in ['desktop', 'doughnuts', 'desks-cropped'] %}
+        {% set image = ('assets/images/stock/' ~ defaultImage ~ '.png')|theme %}
+        <div class="slide-item" style="background-image:url('{{ image }}')">
+            {% if hasContent('shop/slide-' ~ loop.index ~ '.html') %}
+                <div class="slide-content slide-style-{{ loop.index }}">
+                    {% content 'shop/slide-' ~ loop.index ~ '.html' %}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

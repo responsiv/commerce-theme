@@ -1,0 +1,65 @@
+<h4>Shipping Method</h4>
+
+{% if hasShippingAddress %}
+    {% if shippingMethods is not empty %}
+        <ul class="list-group mt-3">
+            {% for method in shippingMethods %}
+                {% if method.hasChildOptions %}
+                    {% for childOption in method.childOptions %}
+                        <li class="list-group-item">
+                            <label class="form-check-label d-flex w-100">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="shipping_method"
+                                    value="{{ childOption.id }}"
+                                    {{ shippingMethod.id == childOption.id ? 'checked' }} />
+                                <div class="ps-1 ms-2">
+                                    <p class="mb-0">{{ method.name }} - {{ childOption.name }}</p>
+                                    {% if method.description %}
+                                        <small class="text-muted">{{ method.description }}</small>
+                                    {% endif %}
+                                </div>
+                                <div class="small ms-auto fw-bold">
+                                    {{ childOption.quote|currency }}
+                                </div>
+                            </label>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li class="list-group-item list-group-item-action">
+                        <label class="form-check-label d-flex w-100">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="shipping_method"
+                                value="{{ method.id }}"
+                                {{ shippingMethod.id == method.id ? 'checked' }} />
+                            <div class="ps-1 ms-2">
+                                <p class="mb-0">{{ method.name }}</p>
+                                {% if method.description %}
+                                    <small class="text-muted">{{ method.description }}</small>
+                                {% endif %}
+                            </div>
+                            <div class="small ms-auto fw-bold">
+                                {% if method.isFree %}
+                                    Free
+                                {% else %}
+                                    {{ method.quote|currency }}
+                                {% endif %}
+                            </div>
+                        </label>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-light" role="alert">
+            There are no shipping methods available for your location.
+        </div>
+    {% endif %}
+{% else %}
+    <div class="alert alert-light" role="alert">
+        Enter your shipping address to view available shipping methods.
+    </div>
+{% endif %}

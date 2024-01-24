@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-6">
+        <div class="mb-4">
+            <h6 class="fw-bold">Contact Details</h6>
+            <p>{{ order.billing_email }}</p>
+        </div>
+        <div class="mb-4">
+            <h6 class="fw-bold">Shipping Address</h6>
+            <p>
+                {{ order.shipping_first_name }} {{ order.shipping_last_name }}<br />
+                {{ order.shipping_address_line1 }}<br />
+                {% if order.shipping_address_line2 %}
+                    {{ order.shipping_address_line2 }}<br />
+                {% endif %}
+                {{ order.shipping_city }} {{ order.shipping_state.code }} {{ order.shipping_zip }}<br />
+                {{ order.shipping_country.name }}<br />
+                {{ order.shipping_phone }}
+            </p>
+        </div>
+        <div class="mb-4">
+            <h6 class="fw-bold">Shipping Method</h6>
+            <p>
+                {{ order.shipping_method.name }}
+            </p>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="mb-4">
+            <h6 class="fw-bold">Payment Method</h6>
+            <p>
+                {{ order.payment_method.name }}
+            </p>
+        </div>
+        <div class="mb-4">
+            <h6 class="fw-bold">Billing Address</h6>
+            <p>
+                {{ order.billing_first_name }} {{ order.billing_last_name }}<br />
+                {{ order.billing_address_line1 }}<br />
+                {% if order.billing_address_line2 %}
+                    {{ order.billing_address_line2 }}<br />
+                {% endif %}
+                {{ order.billing_city }} {{ order.billing_state.code }} {{ order.billing_zip }}<br />
+                {{ order.billing_country.name }}<br />
+                {{ order.billing_phone }}
+            </p>
+        </div>
+    </div>
+</div>

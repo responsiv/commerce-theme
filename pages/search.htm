@@ -1,0 +1,92 @@
+##
+url = "/search"
+layout = "default"
+title = "Search the site"
+meta_title = "Search"
+
+[catalog]
+
+[collection blog]
+handle = "Blog\Post"
+
+[collection wiki]
+handle = "Page\Article"
+
+[resources]
+vars[activeNavLink] = 'search'
+==
+{% set searchTerm = get('term')|trim %}
+{% put pageTitle=searchTerm ~ ' - Search Results' %}
+
+<div class="container container-padded">
+    <header>
+        <h1>{{ searchTerm }} - Search Results</h1>
+    </header>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="mb-5">
+                <div class="input-group">
+                    <div class="form-control-search">
+                        <input type="text" name="term" class="form-control" placeholder="Search" value="{{ searchTerm }}">
+                        <span class="search-icon"></span>
+                    </div>
+                </div>
+            </form>
+
+            {# --------- Search Shop Products --------- #}
+            {% set products = catalog.productQuery.searchWhere(searchTerm, ['name', 'description']).paginate(16) %}
+            {% if products is not empty %}
+                <h2>Products</h2>
+                <div class="shop-featured row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3 pb-5">
+                    {% for product in products %}
+                        {% partial 'shop/product-card' product=product %}
+                    {% endfor %}
+                </div>
+                <nav class="search-pagination" aria-label="Pagination">
+                    {{ pager(products, { withQuery: true }) }}
+                </nav>
+            {% endif %}
+
+            {# --------- Search Blog Posts --------- #}
+            {% set posts = blog.searchWhere(searchTerm, ['title', 'content']).paginate(16) %}
+            {% if posts is not empty %}
+                <h2>Blog Posts</h2>
+                <div class="blog-search row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-xl-3 g-3 pb-5">
+                    {% for post in posts %}
+                        {% partial 'blog/post-card' post=post %}
+                    {% endfor %}
+                    {% for post in posts %}
+                        {% partial 'blog/post-card' post=post %}
+                    {% endfor %}
+                </div>
+                <nav class="search-pagination" aria-label="Pagination">
+                    {{ pager(posts, { withQuery: true }) }}
+                </nav>
+            {% endif %}
+
+            {# --------- Wiki Articles Products --------- #}
+            {% set articles = wiki.searchWhere(searchTerm, ['title', 'content']).paginate(4) %}
+            {% if articles is not empty %}
+                <h2>Articles</h2>
+                <div class="wiki-search row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-xl-3 g-3 pb-5">
+                    {% for article in articles %}
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="wiki-article-title">
+                                        <a href="{{ 'wiki/article'|page({ fullslug: article.fullslug, id: article.id }) }}">{{ article.title }}</a>
+                                    </h5>
+                                    {{ article.content|html_limit(250)|raw }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <nav class="search-pagination" aria-label="Pagination">
+                    {{ pager(products, { withQuery: true }) }}
+                </nav>
+            {% endif %}
+
+        </div>
+    </div>
+</div>

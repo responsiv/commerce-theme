@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-md-5">
+        <div class="position-relative">
+            {% if product.on_sale %}
+                <div class="position-absolute top-0 start-0" style="z-index:1000">
+                    <span class="badge bg-danger fs-6">On Sale!</span>
+                </div>
+            {% endif %}
+            {% partial 'shop/product-images' %}
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="ps-5 mt-4">
+            {% if product.primaryCategory %}
+                <p class="mb-3">
+                    <a href="{{ product.primaryCategory.pageUrl('shop/category') }}" class="d-block">
+                        {{ product.primaryCategory.name }}
+                    </a>
+                </p>
+            {% endif %}
+
+            <h1 class="mb-1">
+                {{ product.title ? product.title : product.name }}
+            </h1>
+
+            <div class="fs-4">
+                <span class="fw-bold text-dark">{{ product.final_sale_price|currency }}</span>
+                {% if product.on_sale %}
+                    <span class="text-decoration-line-through text-muted">{{ product.final_price|currency }}</span>
+                {% endif %}
+            </div>
+
+            <form>
+                <div class="product-options mb-3">
+                    {% partial 'shop/product-options' %}
+                </div>
+                <div class="product-extra-options mb-3">
+                    {% partial 'shop/product-extra-options' %}
+                </div>
+                <div class="product-panel">
+                    {% partial 'shop/add-to-cart-control' %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <ul class="nav nav-pills nav-line-pills" id="productTabs">
+        <li class="nav-item">
+            <button class="nav-link active" id="detailsTab" data-bs-toggle="tab" data-bs-target="#detailsTabPane" type="button">
+                Product Description
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="infoTab" data-bs-toggle="tab" data-bs-target="#infoTabPane" type="button">
+                Information
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content" id="productTabsContent">
+        <div class="tab-pane fade show active" id="detailsTabPane" tabindex="0">
+            <div class="my-4">
+                {% if product.short_description or product.description %}
+                    <p class="lead">{{ product.short_description }}</p>
+                    {{ product.description|raw }}
+                {% else %}
+                    <p class="text-muted"><em>Product has no description.</em></p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="tab-pane fade" id="infoTabPane" tabindex="0">
+            <h4 class="my-4">Technical Details</h4>
+            {% partial 'shop/product-attributes' %}
+        </div>
+    </div>
+</div>

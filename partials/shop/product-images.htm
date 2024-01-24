@@ -1,0 +1,25 @@
+{% set images = product.images %}
+{% if images is not empty %}
+    <div data-control="gallery-slider" class="control-gallery-slider">
+        <div data-slider-previews>
+            {% for image in images %}
+                <div class="image-container">
+                    <a href="{{ image|media }}">
+                        <img src="{{ image.path }}" alt="" class="img-fluid" />
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="slider-nav {{ images.count == 1 ? 'd-none' }}" data-slider-thumbs>
+            {% for image in images %}
+                <div class="image-container">
+                    <img src="{{ image.path }}" alt="" class="w-100 rounded" />
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% else %}
+    <div class="product-no-image">
+        <img class="mb-3 img-fluid" src="{{ 'assets/images/default-post.png'|theme }}" />
+    </div>
+{% endif %}

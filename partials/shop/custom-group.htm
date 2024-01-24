@@ -1,0 +1,19 @@
+[catalog]
+==
+{% set group = catalog.findCustomGroup(groupCode) %}
+
+{% if group %}
+    <div class="product-list">
+        <div class="row g-4 row-cols-xl-4 row-cols-lg-3 row-cols-2">
+            {% for product in group.products %}
+                <div class="col">
+                    {% partial 'shop/product-card' product=product %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-warning" role="alert">
+        <p class="mb-0">The product group <code>{{ groupCode }}</code> was not found. Please create this group in the Admin Panel using the <strong>Shop → Products → Product Groups</strong> page.</p>
+    </div>
+{% endif %}

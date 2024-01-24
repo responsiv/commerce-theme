@@ -1,0 +1,29 @@
+##
+url = "/shop/product/:slug*/:baseid"
+layout = "shop"
+title = "Shop Product"
+meta_title = "{{ product.name }}"
+
+[cart]
+[catalog]
+lookup = "product"
+identifier = "baseid"
+
+[resources]
+vars[activeNavLink] = 'shop'
+==
+{% if not product %}
+    {% do abort(404) %}
+{% elseif product.fullslug and product.fullslug != this.param.fullslug %}
+    {% do redirect(this|page({ fullslug: product.fullslug }), 301) %}
+{% endif %}
+
+<div class="container container-padded">
+    <div class="mb-3">
+        {% partial 'shop/breadcrumb' object=product %}
+    </div>
+
+    <div id="productPage">
+        {% partial 'shop/product-view' %}
+    </div>
+</div>

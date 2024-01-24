@@ -1,0 +1,53 @@
+##
+url = "/account/addresses"
+layout = "account"
+title = "Addresses"
+
+[session]
+security = "user"
+redirect = "account/login"
+
+[profileDetails]
+
+[resources]
+vars[activeNavLink] = 'account'
+vars[activeSubLink] = 'addresses'
+==
+{% set hasAddresses = profileDetails.addressBook.count > 0 %}
+<div class="page-account">
+    <div class="d-flex justify-content-between mb-4">
+        <h2 class="mb-0">
+            Address Book
+        </h2>
+        {% if hasAddresses %}
+            <a
+                href="javascript:;"
+                class="btn btn-outline-primary"
+                data-request="onAjax"
+                data-request-update="{ 'account/popup-account-address': '#siteModalContent' }"
+                data-bs-toggle="modal"
+                data-bs-target="#siteModal">
+                Add a new address
+            </a>
+        {% endif %}
+    </div>
+    <div class="row" id="accountAddressList">
+        {% if hasAddresses %}
+            {% partial 'account/address-list' %}
+        {% else %}
+            <div class="text-center">
+                <i class="bi bi-map text-secondary" style="font-size:70px"></i>
+                <p style="margin-top:-1rem">No addresses yet</p>
+                <a
+                    href="javascript:;"
+                    class="btn btn-outline-primary mt-2"
+                    data-request="onAjax"
+                    data-request-update="{ 'account/popup-account-address': '#siteModalContent' }"
+                    data-bs-toggle="modal"
+                    data-bs-target="#siteModal">
+                    Add your first address
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>

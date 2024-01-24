@@ -1,0 +1,37 @@
+{% set items = cart.listActiveItems %}
+
+{% if items is not empty %}
+    <div>
+        {% partial 'shop/cart-list' %}
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    {% partial 'shop/shipping-estimator' %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="text-end mt-4">
+                <a
+                    href="javascript:;"
+                    data-request="onUpdateCart"
+                    data-request-update="{ 'shop/cart-view': '#cartPartial', 'shop/mini-cart': '#miniCart' }"
+                    class="btn btn-dark btn-lg">
+                    Update Cart
+                </a>
+                <a href="{{ 'shop/checkout-single'|page }}" class="btn btn-success btn-lg">
+                    <i class="bi bi-lock-fill"></i>
+                    Checkout Securely
+                </a>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <p>Your shopping cart is empty.</p>
+    <a href="{{ 'shop/index'|page }}" class="btn btn-primary btn-pill">
+        Continue Shopping
+    </a>
+{% endif %}

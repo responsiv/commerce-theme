@@ -1,0 +1,57 @@
+##
+description = "Shop layout"
+
+[cart]
+==
+<!DOCTYPE html>
+<html lang="{{ this.site.hard_locale }}">
+    <head>
+        {% partial 'site/head/head-meta' %}
+        <title>October CMS - {{ this.page.meta_title ?: placeholder('pageTitle') }}</title>
+        <meta name="description" content="{{ this.page.meta_description }}">
+        <meta name="title" content="{{ this.page.meta_title }}">
+        {% partial 'site/head/head-links' %}
+        {% partial 'site/head/head-scripts' %}
+        {% partial 'site/head/analytics-code' %}
+    </head>
+    <body class="layout-shop">
+        {% put headerToolbar %}
+            <div class="d-flex align-items-center justify-content-end h-100">
+                <div>
+                    {% partial 'site/nav-search' %}
+                </div>
+                <div class="text-center ms-4 header-toolbar-item">
+                    <a href="{{ 'account-shop/orders'|page }}" class="text-reset text-decoration-none">
+                        <div class="text-center">
+                            <div class="d-inline-block mb-xl-2">
+                                <i class="bi bi-archive fs-4"></i>
+                            </div>
+                            <p class="mb-0 d-none d-xl-block small">My Orders</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="text-center ms-4 header-toolbar-item position-relative" id="miniCart" data-turbo-permanent>
+                    {% partial 'shop/mini-cart' %}
+                </div>
+            </div>
+        {% endput %}
+
+        <!-- Header -->
+        {% partial 'site/header' %}
+
+        {% partial 'site/flash-messages' %}
+
+        <!-- Content -->
+        <section id="layout-content">
+            {% page %}
+        </section>
+
+        <!-- Footer -->
+        <footer id="layout-footer">
+            {% partial 'site/footer' %}
+        </footer>
+
+        <!-- Mobile -->
+        {% partial 'site/nav-mobile' %}
+    </body>
+</html>

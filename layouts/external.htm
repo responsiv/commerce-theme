@@ -1,0 +1,71 @@
+##
+description = "Shop Checkout distraction free layout"
+==
+<!DOCTYPE html>
+<html lang="{{ this.site.hard_locale }}">
+    <head>
+        {% partial 'site/head/head-meta' %}
+        <title>October CMS - {{ this.page.meta_title ?: placeholder('pageTitle') }}</title>
+        <meta name="description" content="{{ this.page.meta_description }}">
+        <meta name="title" content="{{ this.page.meta_title }}">
+        {% partial 'site/head/head-links' %}
+        {% partial 'site/head/head-scripts' %}
+        {% partial 'site/head/analytics-code' %}
+    </head>
+    <body class="layout-shop">
+        <!-- Header -->
+        <div id="layout-banner">
+            <div class="container">
+                &nbsp;
+            </div>
+        </div>
+        <header id="layout-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xxl-3 col-lg-4 d-flex align-items-center">
+                        <a class="navbar-brand" href="{{ 'index'|page }}">
+                            <img src="{{ 'assets/images/logo.svg'|theme }}" alt="October CMS Demo" height="35" />
+                        </a>
+                    </div>
+                    <div class="col-xxl-9 col-lg-8">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        {# <nav id="layout-nav" class="navbar navbar-expand-lg navbar-dark">
+            <div class="navbar-container container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        &nbsp;
+                    </ul>
+                </div>
+            </div>
+        </nav> #}
+
+        {% partial 'site/flash-messages' %}
+
+        <!-- Content -->
+        <section id="layout-content">
+            {% page %}
+        </section>
+
+        <!-- Footer -->
+        <footer id="layout-footer">
+            <div class="element-footer">
+                <div class="container">
+                    <div class="row">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Mobile -->
+        {% partial 'site/nav-mobile' %}
+    </body>
+</html>

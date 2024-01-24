@@ -1,0 +1,64 @@
+##
+url = "/shop/category/:fullslug*?/:baseid?"
+layout = "shop"
+title = "Shop Category"
+
+[catalog]
+lookup = "category"
+identifier = "baseid"
+
+[resources]
+vars[activeNavLink] = 'shop'
+==
+{% if not category %}
+    {% do abort(404) %}
+{% elseif category.fullslug and category.fullslug != this.param.fullslug %}
+    {% do redirect(this|page({ fullslug: category.fullslug }), 301) %}
+{% endif %}
+
+{% set subcategories = category.children %}
+{% set hasSubcategories = subcategories.count %}
+{% set hasProducts = category.countProducts %}
+
+<div class="container container-padded">
+    <div class="mb-3">
+        {% partial 'shop/breadcrumb' object=category %}
+    </div>
+
+    <div class="row gx-10">
+        <aside class="col-lg-3">
+            {% if category.short_description %}
+                <p>{{ category.short_description }}</p>
+            {% endif %}
+
+            {% if hasSubcategories %}
+                <h4>Subcategories</h4>
+                <ul class="bullet-list">
+                    {% for subcategory in subcategories %}
+                        <li>
+                            <a href="{{ subcategory.pageUrl('shop/category') }}">
+                                {{ subcategory.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </aside>
+        <section class="col-lg-9">
+            <h1>{{ category.title ? category.title : category.name }}</h1>
+
+            {% if hasProducts %}
+                <div id="categoryProducts">
+                    {% ajaxPartial 'shop/category-products' %}
+                </div>
+            {% else %}
+                <p>This category does not contain any products.</p>
+            {% endif %}
+
+            {% if not hasSubcategories and not hasProducts %}
+                <p>This category does not contain any products or subcategories.</p>
+                <p><a href="{{ 'shop/index'|page }}">Return to Shop</a></p>
+            {% endif %}
+        </section>
+    </div>
+</div>

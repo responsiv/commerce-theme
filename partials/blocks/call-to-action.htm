@@ -1,0 +1,49 @@
+<section class="py-5">
+    {% if block.style == '1' %}
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 text-center">
+                    <p class="lead">
+                        {{ block.content|raw }}
+                    </p>
+                    {% if block.button_text %}
+                        <p class="mt-5 mt-sm-4">
+                            <a class="btn btn-primary" href="{{ block.button_link|link }}">{{ block.button_text }}</a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% elseif block.style == '2' %}
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6 text-center">
+                    <h1>{{ block.title }}</h1>
+                    <div class="lead">
+                        {{ block.content|raw }}
+                    </div>
+                    {% if block.button_text %}
+                        <p class="mt-5 mt-sm-4">
+                            <a class="btn btn-secondary" href="{{ block.button_link|link }}">{{ block.button_text }}</a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% elseif block.style == '3' %}
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-8 col-md-6 col-lg-6 text-center">
+                    <h2>
+                        <strong>{{ block.title }}</strong>
+                    </h2>
+                    {% if block.button_text %}
+                        <p class="mt-5 mt-sm-4">
+                            <a class="btn btn-outline-primary" href="{{ block.button_link|link }}">{{ block.button_text }}</a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</section>

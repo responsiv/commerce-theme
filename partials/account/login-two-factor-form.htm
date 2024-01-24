@@ -1,0 +1,79 @@
+<div class="collapse show two-factor-collapse">
+    <form method="post" data-request="onTwoFactorChallenge" data-request-flash>
+        <input type="hidden" name="redirect" value="account/index" />
+
+        <div class="text-center pb-2">
+            <h1 class="h2 mb-3">Enter the code found in your authenticator app</h1>
+        </div>
+
+        <div class="form-floating my-3">
+            <input
+                name="code"
+                type="text"
+                class="form-control"
+                id="inputTwoFactorCode"
+                placeholder="name@example.com"
+            />
+            <label for="inputTwoFactorCode">Authentication code</label>
+        </div>
+
+        <button
+            class="btn btn-primary btn-lg w-100 py-2"
+            data-attach-loading
+            type="submit">
+            Confirm
+        </button>
+    </form>
+
+    <div class="text-center">
+        <p class="mt-5 mb-3 text-body-secondary">
+            Lost device?
+            <a
+                href="javascript:;"
+                data-bs-toggle="collapse"
+                data-bs-target=".two-factor-collapse">
+                Use a recovery code
+            </a>
+        </p>
+    </div>
+</div>
+
+<div class="collapse two-factor-collapse">
+    <form method="post" data-request="onTwoFactorChallenge" data-request-flash>
+        <input type="hidden" name="redirect" value="account/index" />
+
+        <div class="text-center pb-2">
+            <h1 class="h2 mb-3">Enter one of your emergency recovery codes</h1>
+        </div>
+
+        <div class="form-floating my-3">
+            <input
+                name="recovery_code"
+                type="text"
+                class="form-control"
+                id="inputTwoFactorRecoveryCode"
+                placeholder="name@example.com"
+            />
+            <label for="inputTwoFactorRecoveryCode">Recovery code</label>
+        </div>
+
+        <button
+            class="btn btn-primary btn-lg w-100 py-2"
+            data-attach-loading
+            type="submit">
+            Confirm
+        </button>
+    </form>
+
+    <div class="text-center">
+        <p class="mt-5 mb-3 text-body-secondary">
+            Found device?
+            <a
+                href="javascript:;"
+                data-bs-toggle="collapse"
+                data-bs-target=".two-factor-collapse">
+                Use an authentication code
+            </a>
+        </p>
+    </div>
+</div>

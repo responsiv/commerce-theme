@@ -1,0 +1,21 @@
+<div class="product-list view-{{ viewMode }}">
+    {% if viewMode == 'grid' %}
+        <div class="row g-4 row-cols-lg-3 row-cols-md-2 row-cols-1">
+            {% for product in products %}
+                <div class="col">
+                    {% partial 'shop/product-card' product=product %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if viewMode == 'list' %}
+        <div class="row g-4 row-cols-1">
+            {% for product in products %}
+                <div class="col">
+                    {% partial 'shop/product-card-list' product=product %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

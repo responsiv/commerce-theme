@@ -1,0 +1,60 @@
+[backendLink]
+[sitePicker]
+==
+<div id="layout-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-12 text-center text-md-start">
+                {# Feel free to replace this with anything you like #}
+                {% partial 'site/helpers/how-its-made' %}
+            </div>
+            <div class="col-4 text-end d-none d-md-block">
+                <div>
+                    {% if backendUrl %}
+                        <a class="text-reset text-decoration-none me-3" href="{{ backendUrl }}" target="backend"><i class="bi bi-gear-wide-connected"></i> Admin Panel</a>
+                    {% endif %}
+                    {% if sitePicker.isEnabled %}
+                        <a class="text-decoration-none text-reset dropdown-toggle" href="{{ ''|page }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% partial 'site/helpers/flag-icon' %}
+                            {{ this.site.name|default('Sites') }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% for site in sitePicker.sites %}
+                                <li><a class="dropdown-item text-decoration-none {{ this.site.code == site.code ? 'active' }}" href="{{ site.url }}">{{ site.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% placeholder headerBefore %}
+<header id="layout-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-3 col-lg-4 d-flex align-items-center">
+                <a class="navbar-brand" href="{{ 'index'|page }}">
+                    <img src="{{ 'assets/images/logo.svg'|theme }}" alt="October CMS Demo" height="35" />
+                </a>
+            </div>
+            <div class="col-xxl-9 col-lg-8">
+                {% placeholder headerToolbar %}
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Nav -->
+<nav id="layout-nav" class="navbar navbar-expand-lg navbar-dark">
+    <div class="navbar-container container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% partial 'site/nav-links' %}
+            </ul>
+        </div>
+    </div>
+</nav>
+{% placeholder headerAfter %}

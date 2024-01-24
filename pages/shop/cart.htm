@@ -1,0 +1,27 @@
+##
+url = "/shop/cart"
+layout = "shop"
+title = "Cart"
+
+[cart]
+
+[resources]
+vars[activeNavLink] = 'shop'
+==
+<div class="container container-padded">
+    <div class="mb-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ 'shop/index'|page }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+            </ol>
+        </nav>
+    </div>
+
+    <h1>
+        Cart
+    </h1>
+    <form id="cartPartial">
+        {% partial 'shop/cart-view' %}
+    </form>
+</div>

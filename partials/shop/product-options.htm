@@ -1,0 +1,22 @@
+{% if product.options is not empty %}
+    <ul class="list-group list-group-flush">
+        {% for option in product.options %}
+            <li class="list-group-item px-2">
+                <div class="row align-items-center">
+                    <div class="col-5 col-md-4">
+                        <span class="fw-bold">{{ option.name }}</span>
+                    </div>
+                    <div class="col-7 col-md-8">
+                        <select
+                            name="product_options[{{ option.hash }}]"
+                            class="form-select">
+                            {% for value in option.values %}
+                                <option value="{{ value }}">{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

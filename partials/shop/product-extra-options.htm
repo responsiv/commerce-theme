@@ -1,0 +1,24 @@
+{% if product.extras is not empty %}
+    <ul class="list-group list-group-flush">
+        {% for extra in product.all_extras %}
+            <li class="list-group-item px-2">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input
+                            name="product_extras[{{ extra.hash }}]"
+                            type="checkbox"
+                            class="form-check-input"
+                            value="1" />
+                        {{ extra.description }}
+
+                        {% if extra.final_price > 0 %}
+                            <span class="ms-2 price text-success">+{{ extra.final_price|currency }}</span>
+                        {% else %}
+                            <span class="ms-2 price text-success">FREE</span>
+                        {% endif %}
+                    </label>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

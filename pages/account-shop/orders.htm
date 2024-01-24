@@ -1,0 +1,76 @@
+##
+url = "/account/orders"
+layout = "account"
+title = "Orders"
+
+[session]
+security = "user"
+redirect = "account/login"
+
+[resources]
+vars[activeNavLink] = 'account'
+vars[activeSubLink] = 'orders'
+==
+<div class="page-account">
+    <h2 class="mb-4">
+        My Orders
+    </h2>
+
+    {% set orders = user.orders %}
+    {% do orders.load('status') %}
+    {% if orders is not empty %}
+        <div class="table-responsive-xxl border-0">
+            <table class="table mb-0 text-nowrap table-centered">
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        {% set url = 'account-shop/order'|page({ id: order.id }) %}
+                        <tr>
+                            <td class="align-middle border-top-0">
+                                <a href="{{ url }}">#{{ order.orderNumber }}</a>
+                            </td>
+                            <td class="align-middle border-top-0">
+                                {{ order.ordered_at|date('j M Y') }}
+                            </td>
+                            <td class="align-middle border-top-0">
+                                <span class="badge" style="background:{{ order.status.color_background }}">
+                                    {{ order.status.name }}
+                                </span>
+                            </td>
+                            <td class="align-middle border-top-0">
+                                {{ order.total|currency }}
+                            </td>
+                            <td class="text-muted align-middle border-top-0">
+                                <a
+                                    href="{{ url }}"
+                                    class="text-inherit"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-title="View">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else  %}
+        <div class="text-center">
+            <i class="bi bi-cart text-secondary" style="font-size:70px"></i>
+            <p style="margin-top:-1rem">No orders yet</p>
+            <a
+                href="{{ 'shop/index'|page }}"
+                class="btn btn-outline-primary mt-2">
+                Continue shopping
+            </a>
+        </div>
+    {% endif %}
+</div>

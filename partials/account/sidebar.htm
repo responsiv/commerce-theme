@@ -1,0 +1,41 @@
+{% set hasShopModule = true %}
+<ul class="nav flex-column nav-pills">
+    <li class="nav-item">
+        <a
+            class="nav-link {{ activeSubLink == 'index' ? 'active' }}"
+            href="{{ 'account/index'|page }}">
+            Profile Details
+        </a>
+    </li>
+    {% if hasShopModule %}
+        <li class="nav-item">
+            <a
+                class="nav-link {{ activeSubLink == 'orders' ? 'active' }}"
+                href="{{ 'account-shop/orders'|page }}">
+                My Orders
+            </a>
+        </li>
+    {% endif %}
+    <li class="nav-item">
+        <a
+            class="nav-link {{ activeSubLink == 'addresses' ? 'active' }}"
+            href="{{ 'account/addresses'|page }}">
+            My Addresses
+        </a>
+    </li>
+    <li class="nav-item">
+        <a
+            class="nav-link {{ activeSubLink == 'security' ? 'active' }}"
+            href="{{ 'account/security'|page }}">
+            Account Security
+        </a>
+    </li>
+    <li class="nav-item">
+        <a
+            class="nav-link"
+            href="javascript:;"
+            data-request="onLogout">
+            Logout
+        </a>
+    </li>
+</ul>

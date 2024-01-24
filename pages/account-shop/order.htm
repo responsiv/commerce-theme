@@ -1,0 +1,100 @@
+##
+url = "/account/order/:id"
+layout = "account"
+title = "Order"
+
+[session]
+security = "user"
+redirect = "account/login"
+
+[resources]
+vars[activeNavLink] = 'account'
+vars[activeSubLink] = 'orders'
+==
+{% set order = user.orders().find(this.param.id) %}
+{% if not order %}
+    {% do abort(404) %}
+{% endif %}
+
+<div class="mb-3">
+    <a
+        href="{{ 'account-shop/orders'|page }}"
+        class="btn btn-link ps-0 text-reset text-decoration-none">
+        <i class="bi bi-chevron-left"></i> Back to Orders
+    </a>
+</div>
+
+<div class="page-account">
+    <div class="row align-items-center mb-3">
+        <div class="col-4">
+            <h2 class="m-0">
+                Order #{{ order.orderNumber }}
+            </h2>
+        </div>
+        <div class="col-8 text-end">
+            <p class="text-muted m-0">
+                {{ order.ordered_at.format('F n, Y') }}
+                at {{ order.ordered_at.format('h:ia') }}
+            </p>
+        </div>
+    </div>
+
+    <div class="py-3">
+        {% partial 'shop/order-items' items=order.items %}
+    </div>
+
+    {% if not order.is_payment_processed %}
+        <div class="card mb-2">
+            <div class="card-body py-2">
+                <div class="d-flex align-items-center">
+                    <div class="pe-4">
+                        <i class="bi bi-bag-x text-danger" style="font-size:32px"></i>
+                    </div>
+                    <div>
+                        <h5 class="cart-title m-0">This Order is Unpaid</h5>
+                    </div>
+                    <div class="ms-auto">
+                        <a
+                            href="{{ 'shop/payment'|page({ hash: order.order_hash }) }}"
+                            class="btn btn-dark">
+                            Pay Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="card mb-2">
+        <div class="card-body pb-0">
+            <div class="row">
+                <div class="col-6">
+                    <h5 class="fw-bold">Shipping Address</h5>
+                    <p>
+                        {{ order.shipping_first_name }} {{ order.shipping_last_name }}<br />
+                        {{ order.shipping_address_line1 }}<br />
+                        {% if order.shipping_address_line2 %}
+                            {{ order.shipping_address_line2 }}<br />
+                        {% endif %}
+                        {{ order.shipping_city }} {{ order.shipping_state.code }} {{ order.shipping_zip }}<br />
+                        {{ order.shipping_country.name }}<br />
+                        {{ order.shipping_phone }}
+                    </p>
+                </div>
+                <div class="col-6">
+                    <h5 class="fw-bold">Billing Address</h5>
+                    <p>
+                        {{ order.billing_first_name }} {{ order.billing_last_name }}<br />
+                        {{ order.billing_address_line1 }}<br />
+                        {% if order.billing_address_line2 %}
+                            {{ order.billing_address_line2 }}<br />
+                        {% endif %}
+                        {{ order.billing_city }} {{ order.billing_state.code }} {{ order.billing_zip }}<br />
+                        {{ order.billing_country.name }}<br />
+                        {{ order.billing_phone }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

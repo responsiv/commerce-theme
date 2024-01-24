@@ -1,0 +1,8 @@
+{% if this.site.locale in ['en', 'en-au'] %}
+    {% set icon = 'gb' %}
+{% elseif this.site.locale %}
+    {% set icon = this.site.locale %}
+{% else %}
+    {% set icon = 'gb' %}
+{% endif %}
+<i class="flag-icon flag-icon-{{ icon }}"></i>

@@ -1,0 +1,91 @@
+{% set checkoutStep = post('checkout_step', 'details') %}
+<div class="border-bottom">
+    <div class="container py-3">
+        {% partial 'shop/checkout-order-progress' %}
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-7 col-12 py-5">
+            <form id="checkoutForm" data-control="checkout-form">
+                <div class="pe-4">
+                    {% if checkoutStep == 'details' %}
+                        {% partial 'shop/checkout-step-details' %}
+                        <input type="hidden" name="post_contact_details" value="true" />
+                        <div class="d-flex align-items-center justify-content-between mt-4">
+                            <a
+                                href="{{ 'shop/cart'|page }}"
+                                class="btn btn-link ps-0">
+                                <i class="bi bi-chevron-left"></i> Back to Shopping Cart
+                            </a>
+                            <button
+                                type="submit "
+                                data-request="onAction"
+                                data-request-data="{ checkout_step: 'shipping' }"
+                                data-request-update="{ 'shop/checkout-view': '#shopCheckoutView' }"
+                                data-attach-loading
+                                data-request-flash
+                                class="btn btn-lg btn-primary">
+                                Continue to Shipping
+                            </button>
+                        </div>
+                    {% elseif checkoutStep == 'shipping' %}
+                        {% partial 'shop/checkout-step-shipping' %}
+                        <input type="hidden" name="post_shipping_method" value="true" />
+                        <div class="d-flex justify-content-between mt-4">
+                            <a
+                                href="javascript:;"
+                                data-request="onAction"
+                                data-request-data="{ checkout_step: 'details' }"
+                                data-request-update="{ 'shop/checkout-view': '#shopCheckoutView' }"
+                                class="btn btn-link">
+                                <i class="bi bi-chevron-left"></i> Return to Details
+                            </a>
+                            <a
+                                href="javascript:;"
+                                data-request="onAction"
+                                data-request-data="{ checkout_step: 'payment' }"
+                                data-request-update="{ 'shop/checkout-view': '#shopCheckoutView' }"
+                                data-attach-loading
+                                data-request-flash
+                                class="btn btn-lg btn-primary">
+                                Continue to Payment
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    {% elseif checkoutStep == 'payment' %}
+                        {% partial 'shop/checkout-step-payment' %}
+                        <input type="hidden" name="post_payment_method" value="true" />
+                        <div class="d-flex justify-content-between mt-4">
+                            <a
+                                href="javascript:;"
+                                data-request="onAction"
+                                data-request-data="{ checkout_step: 'shipping' }"
+                                data-request-update="{ 'shop/checkout-view': '#shopCheckoutView' }"
+                                class="btn btn-link">
+                                <i class="bi bi-chevron-left"></i> Return to Shipping
+                            </a>
+                            <a
+                                href="javascript:;"
+                                data-request="onAction"
+                                data-request-data="{ checkout_step: 'complete' }"
+                                data-request-update="{ 'shop/checkout-view': '#shopCheckoutView' }"
+                                data-attach-loading
+                                data-request-flash
+                                class="btn btn-lg btn-primary">
+                                Pay Now
+                            </a>
+                        </div>
+                    {% elseif checkoutStep == 'complete' %}
+                        {% partial 'shop/checkout-step-complete' %}
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-5 col-12 d-none d-md-block border-start py-5">
+            <div class="ps-4" id="shopCheckoutOrderSummary">
+                {% partial 'shop/order-summary' %}
+            </div>
+        </div>
+    </div>
+</div>

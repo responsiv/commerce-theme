@@ -1,0 +1,41 @@
+<table class="add-to-cart-control">
+    <tbody>
+        <tr>
+            <td>
+                <span class="product-price">
+                    {{ product.final_sale_price|currency }}
+                </span>
+            </td>
+            <td class="cart-symbol">x</td>
+            <td class="quantity-controls">
+                <div data-control="quantity-input" class="input-group control-quantity-input">
+                    <input type="button" value="-" class="btn btn-sm button-minus" />
+                    <input
+                        class="quantity-field form-input form-control-sm"
+                        type="number"
+                        step="1"
+                        min="1"
+                        max="10"
+                        name="product_cart_quantity"
+                        value="{{ post('product_cart_quantity', 1) }}" />
+                    <input type="button" value="+" class="btn btn-sm button-plus" />
+                </div>
+            </td>
+            <td class="add-button">
+                <button
+                    data-request="onAddToCart"
+                    data-request-update="{ 'shop/mini-cart': '#miniCart' }"
+                    data-request-flash
+                    class="btn btn-primary">
+                    Add to Cart
+                </button>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">Price</td>
+            <td colspan="2">Quantity</td>
+        </tr>
+    </tfoot>
+</table>

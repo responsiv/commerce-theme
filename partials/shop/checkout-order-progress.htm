@@ -1,0 +1,51 @@
+{% if shippingRequired %}
+    {% set steps = {
+        'cart': 'Cart',
+        'details': 'Details',
+        'shipping': 'Shipping',
+        'payment': 'Payment',
+        'complete': 'Complete',
+    } %}
+{% else %}
+    {% set steps = {
+        'cart': 'Cart',
+        'details': 'Details',
+        'payment': 'Payment',
+        'complete': 'Complete',
+    } %}
+{% endif %}
+{% set currentFound = false %}
+{% set isComplete = checkoutStep == 'complete' %}
+
+<div class="stepper stepper-pills">
+    <div class="stepper-nav flex-center flex-wrap mb-10">
+        {% for step, label in steps %}
+            {% set isCurrent = checkoutStep == step %}
+            {% set currentFound = currentFound or isCurrent %}
+            <a
+                {% if isComplete %}{% elseif step == 'cart' %}
+                    href="{{ 'shop/cart'|page }}"
+                {% elseif not currentFound %} href="javascript:;"
+                    data-request="onAction"
+                    data-request-data="{ checkout_step: '{{ step }}' }"
+                    data-request-update="{ 'shop/checkout-view': '#shopCheckoutView' }"
+                {% endif %}
+                class="stepper-item {{ isCurrent ? 'current' : '' }} {{ not currentFound ? 'completed' }}"
+            >
+                <div class="stepper-wrapper d-flex align-items-center">
+                    <div class="stepper-icon">
+                        <i class="stepper-check bi bi-check"></i>
+                        <span class="stepper-number">{{ loop.index }}</span>
+                    </div>
+
+                    <div class="stepper-label">
+                        <h3 class="stepper-title">
+                            {{ label }}
+                        </h3>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+
+    </div>
+</div>

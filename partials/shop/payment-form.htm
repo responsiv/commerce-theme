@@ -1,0 +1,28 @@
+{% if order and order.payment_method %}
+    {% set paymentMethod = order.payment_method %}
+    {% if paymentMethod.hasPaymentForm %}
+        <div class="payment-form">
+            {{ paymentMethod.renderPaymentForm(this.controller)|raw }}
+        </div>
+    {% else %}
+        {% set message = paymentMethod.payOfflineMessage() %}
+        <div class="alert alert-light pb-0" role="alert">
+            {% if message %}
+                {{ message|raw }}
+            {% else %}
+                <p>Payment method "{{ paymentMethod.name }}" has no payment form. Please pay and notify us.</p>
+            {% endif %}
+        </div>
+        {% if not order.is_final %}
+            <div class="d-grid">
+                <button
+                    class="btn btn-lg btn-dark btn-block"
+                    data-request="onPlaceOrder"
+                    data-request-form="#checkoutForm"
+                    data-request-flash
+                    data-attach-loading
+                >Complete Order</button>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endif %}
