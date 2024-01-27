@@ -1,5 +1,9 @@
 {% set images = product.images %}
-{% if images is not empty %}
+{% if images is empty %}
+    <div class="product-no-image">
+        <img class="mb-3 img-fluid" src="{{ 'assets/images/default-post.png'|theme }}" />
+    </div>
+{% else %}
     <div data-control="gallery-slider" class="control-gallery-slider">
         <div data-slider-previews>
             {% for image in images %}
@@ -17,9 +21,5 @@
                 </div>
             {% endfor %}
         </div>
-    </div>
-{% else %}
-    <div class="product-no-image">
-        <img class="mb-3 img-fluid" src="{{ 'assets/images/default-post.png'|theme }}" />
     </div>
 {% endif %}

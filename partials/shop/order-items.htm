@@ -18,10 +18,10 @@
             <div class="row align-items-center py-3">
                 <div class="col-3 col-md-2">
                     <a href="{{ product.pageUrl('shop/product') }}">
-                        {% if product.images %}
-                            <img class="img-fluid" src="{{ product.images.first|resize(0, 100, { mode: 'auto' }) }}" alt="{{ product.name }}" />
-                        {% else %}
+                        {% if product.images is empty %}
                             <img src="{{ 'assets/images/default-post.png'|theme }}" height="100" />
+                        {% else %}
+                            <img class="img-fluid" src="{{ product.images.first|resize(0, 100, { mode: 'auto' }) }}" alt="{{ product.name }}" />
                         {% endif %}
                     </a>
                 </div>

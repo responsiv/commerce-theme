@@ -6,10 +6,10 @@
             <div class="row align-items-center">
                 <div class="col-3">
                     <div class="position-relative">
-                        {% if images is not empty %}
-                            <img class="img-fluid" src="{{ images.first|resize(0, 100, { mode: 'auto' }) }}" alt="{{ product.name }}" />
-                        {% else %}
+                        {% if images is empty %}
                             <img class="img-fluid" src="{{ 'assets/images/default-post.png'|theme }}" height="100" />
+                        {% else %}
+                            <img class="img-fluid" src="{{ images.first|resize(0, 100, { mode: 'auto' }) }}" alt="{{ product.name }}" />
                         {% endif %}
                         <span class="translate-middle badge rounded-pill bg-secondary position-absolute top-0 start-100 fw-normal">
                             {{ item.quantity }}

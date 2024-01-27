@@ -10,10 +10,10 @@
                         </div>
                     {% endif %}
                     <a href="{{ product.pageUrl('shop/product') }}">
-                        {% if images is not empty %}
-                            <img class="mb-3 img-fluid" src="{{ images.first|resize(0, 160, { mode: 'auto' }) }}" alt="{{ product.name }}" />
-                        {% else %}
+                        {% if images is empty %}
                             <img class="mb-3 img-fluid" src="{{ 'assets/images/default-post.png'|theme }}" />
+                        {% else %}
+                            <img class="mb-3 img-fluid" src="{{ images.first|resize(0, 160, { mode: 'auto' }) }}" alt="{{ product.name }}" />
                         {% endif %}
                     </a>
                 </div>
