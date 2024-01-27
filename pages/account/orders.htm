@@ -32,7 +32,7 @@ vars[activeSubLink] = 'orders'
                 </thead>
                 <tbody>
                     {% for order in orders %}
-                        {% set url = 'account-shop/order'|page({ id: order.id }) %}
+                        {% set url = 'account/order'|page({ id: order.id }) %}
                         <tr>
                             <td class="align-middle border-top-0">
                                 <a href="{{ url }}">#{{ order.orderNumber }}</a>
