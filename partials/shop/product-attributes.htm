@@ -1,6 +1,6 @@
 {% set hasAttributes = product.properties is not empty or product.weight or product.height or product.width or product.depth %}
 {% if hasAttributes %}
-    <h4 class="my-4 fs-5">Technical Details</h4>
+    <h4 class="my-4">Technical Details</h4>
     {% if product.properties is not empty %}
         <table class="table table-striped m-0">
             <tbody>
