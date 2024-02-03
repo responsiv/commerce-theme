@@ -1,60 +1,68 @@
-{% if product.properties is not empty %}
-    <table class="table table-striped m-0">
-        <tbody>
-            {% for property in product.properties %}
-                <tr>
-                    <td class="p-3">
-                        <h5 class="small fw-bold mb-1">{{ property.name }}</h5>
-                        <p class="m-0">{{ property.value }}</p>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+{% set hasAttributes = product.properties is not empty or product.weight or product.height or product.width or product.depth %}
+{% if hasAttributes %}
+    <h4 class="my-4 fs-5">Technical Details</h4>
+    {% if product.properties is not empty %}
+        <table class="table table-striped m-0">
+            <tbody>
+                {% for property in product.properties %}
+                    <tr>
+                        <td class="p-3">
+                            <h5 class="small fw-bold mb-1">{{ property.name }}</h5>
+                            <p class="m-0">{{ property.value }}</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    <div class="row mb-4 g-0">
+        <div class="col-12 col-lg-6">
+            <table class="table table-striped">
+                <tbody>
+                    {% if product.weight %}
+                        <tr>
+                            <td class="p-3">
+                                <h5 class="small fw-bold mb-1">Weight</h5>
+                                <p class="m-0">{{ product.weight }} Grams</p>
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if product.height %}
+                        <tr>
+                            <td class="p-3">
+                                <h5 class="small fw-bold mb-1">Height</h5>
+                                <p class="m-0">{{ product.height }} Millimeters</p>
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 col-lg-6">
+            <table class="table table-striped border-start">
+                <tbody>
+                    {% if product.width %}
+                        <tr>
+                            <td class="p-3">
+                                <h5 class="small fw-bold mb-1">Width</h5>
+                                <p class="m-0">{{ product.width }} Millimeters</p>
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if product.depth %}
+                        <tr>
+                            <td class="p-3">
+                                <h5 class="small fw-bold mb-1">Depth</h5>
+                                <p class="m-0">{{ product.depth }} Millimeters</p>
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% else %}
+    <div class="my-4">
+        <p class="text-muted"><em>Product has no details.</em></p>
+    </div>
 {% endif %}
-<div class="row mb-4 g-0">
-    <div class="col-12 col-lg-6">
-        <table class="table table-striped">
-            <tbody>
-                {% if product.weight %}
-                    <tr>
-                        <td class="p-3">
-                            <h5 class="small fw-bold mb-1">Weight</h5>
-                            <p class="m-0">{{ product.weight }} Grams</p>
-                        </td>
-                    </tr>
-                {% endif %}
-                {% if product.height %}
-                    <tr>
-                        <td class="p-3">
-                            <h5 class="small fw-bold mb-1">Height</h5>
-                            <p class="m-0">{{ product.height }} Millimeters</p>
-                        </td>
-                    </tr>
-                {% endif %}
-            </tbody>
-        </table>
-    </div>
-    <div class="col-12 col-lg-6">
-        <table class="table table-striped border-start">
-            <tbody>
-                {% if product.width %}
-                    <tr>
-                        <td class="p-3">
-                            <h5 class="small fw-bold mb-1">Width</h5>
-                            <p class="m-0">{{ product.width }} Millimeters</p>
-                        </td>
-                    </tr>
-                {% endif %}
-                {% if product.depth %}
-                    <tr>
-                        <td class="p-3">
-                            <h5 class="small fw-bold mb-1">Depth</h5>
-                            <p class="m-0">{{ product.depth }} Millimeters</p>
-                        </td>
-                    </tr>
-                {% endif %}
-            </tbody>
-        </table>
-    </div>
-</div>
