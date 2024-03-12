@@ -13,13 +13,13 @@
 
     <div class="shipping-estimator estimator-collapse collapse">
         <div class="row g-3">
-            <div class="col-6">
+            <div class="col-3">
                 {% partial 'account/select-country' %}
             </div>
-            <div class="col-6">
+            <div class="col-3">
                 {% partial 'account/select-state' %}
             </div>
-            <div class="col-6">
+            <div class="col-3">
                 <input
                     name="zip"
                     type="text"
@@ -27,7 +27,7 @@
                     value="{{ address.zip }}"
                     placeholder="Zip Code" />
             </div>
-            <div class="col-6">
+            <div class="col-3">
                 <button
                     class="btn btn-primary"
                     data-request="onEstimateShippingRates"
@@ -36,7 +36,7 @@
                     data-attach-loading
                     data-request-flash
                     type="submit">
-                    Estimate Shipping
+                    Estimate
                 </button>
             </div>
         </div>

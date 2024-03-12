@@ -1,7 +1,9 @@
+[location]
+==
 {% set countryId = countryId|default(post('country_id')) %}
 {% set stateId = stateId|default(post('state_id')) %}
 {% set stateControlSelector = stateControlSelector|default(post('state_control_selector', 'stateControlSelector')) %}
-{% set countries = this.site.available_countries|default([]) %}
+{% set countries = location.availableCountries|default([]) %}
 {% set country = countries.find(countryId)|default(countries.first()) %}
 {% set states = country.fetchStates() %}
 {% set optionsOnly = post('state_control_selector') %}
