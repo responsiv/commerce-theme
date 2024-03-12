@@ -16,10 +16,10 @@
             <div class="col-3">
                 {% partial 'account/select-country' %}
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 {% partial 'account/select-state' %}
             </div>
-            <div class="col-3">
+            <div class="col-2">
                 <input
                     name="zip"
                     type="text"
@@ -47,9 +47,9 @@
     <div class="py-3">
         {% if availableOptions is not empty %}
             <p>The following shipping options are available:</p>
-            <ul class="list-group list-group-flush">
+            <ul class="list-group">
                 {% for option in availableOptions %}
-                    <li class="list-group-item d-flex justify-content-between small">
+                    <li class="list-group-item d-flex justify-content-between">
                         <div class="me-auto">
                             {{ option.name }}
                         </div>

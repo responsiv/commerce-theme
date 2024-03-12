@@ -18,6 +18,7 @@
         name="state_id"
         class="form-select"
     >
+        <option></option>
         {% for state in states %}
             <option value="{{ state.id }}" {{ state.id == stateId ? 'selected'}}>{{ state.name }}</option>
         {% endfor %}
