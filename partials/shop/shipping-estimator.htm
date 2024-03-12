@@ -1,8 +1,9 @@
 {% if not post('showing_options') %}
-    <div class="estimator-collapse collapse show">
+    <div class="mb-2">
+        <i class="bi bi-box"></i>
         <button
             type="button"
-            class="btn btn-outline-secondary"
+            class="btn btn-link ps-1"
             data-bs-toggle="collapse"
             data-bs-target=".estimator-collapse"
         >
@@ -11,7 +12,7 @@
     </div>
 
     <div class="shipping-estimator estimator-collapse collapse">
-        <div class="row gy-3">
+        <div class="row g-3">
             <div class="col-6">
                 {% partial 'account/select-country' %}
             </div>
@@ -24,7 +25,7 @@
                     type="text"
                     class="form-control"
                     value="{{ address.zip }}"
-                    placeholder="Zip / Postal Code" />
+                    placeholder="Zip Code" />
             </div>
             <div class="col-6">
                 <button

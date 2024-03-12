@@ -77,14 +77,4 @@
             </div>
         </li>
     {% endfor %}
-    <li class="list-group-item py-3 px-0 border-top">
-        <div class="row align-items-center">
-            <div class="col-9 text-end">
-                <span>Subtotal</span>
-            </div>
-            <div class="col-3 text-lg-end text-start text-md-end">
-                <span class="fw-bold fs-5">{{ cart.totalPrice|currency({ format: 'long' }) }}</span>
-            </div>
-        </div>
-    </li>
 </ul>
