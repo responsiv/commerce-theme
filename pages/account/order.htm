@@ -54,11 +54,13 @@ vars[activeSubLink] = 'orders'
                         <h5 class="cart-title m-0">This Order is Unpaid</h5>
                     </div>
                     <div class="ms-auto">
-                        <a
-                            href="{{ 'shop/payment'|page({ hash: order.order_hash }) }}"
-                            class="btn btn-dark">
-                            Pay Now
-                        </a>
+                        {% if order.invoice %}
+                            <a
+                                href="{{ 'shop/payment'|page({ hash: order.invoice.hash }) }}"
+                                class="btn btn-dark">
+                                Pay Now
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

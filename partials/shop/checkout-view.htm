@@ -36,7 +36,7 @@
                             <a
                                 href="javascript:;"
                                 data-request="onAction"
-                                data-request-data="{ checkout_step: 'details' }"
+                                data-request-data="{ checkout_step: 'details', skip_validation: true }"
                                 data-request-update="{ 'shop/checkout-view': '#shopCheckoutView' }"
                                 class="btn btn-link">
                                 <i class="bi bi-chevron-left"></i> Return to Details
@@ -50,7 +50,6 @@
                                 data-request-flash
                                 class="btn btn-lg btn-primary">
                                 Continue to Payment
-                                <i class="bi bi-chevron-right"></i>
                             </a>
                         </div>
                     {% elseif checkoutStep == 'payment' %}
@@ -60,27 +59,20 @@
                             <a
                                 href="javascript:;"
                                 data-request="onAction"
-                                data-request-data="{ checkout_step: 'shipping' }"
+                                data-request-data="{ checkout_step: 'shipping', skip_validation: true }"
                                 data-request-update="{ 'shop/checkout-view': '#shopCheckoutView' }"
                                 class="btn btn-link">
                                 <i class="bi bi-chevron-left"></i> Return to Shipping
                             </a>
-                            <a
-                                href="javascript:;"
-                                data-request="onAction"
-                                data-request-data="{ checkout_step: 'complete' }"
-                                data-request-update="{ 'shop/checkout-view': '#shopCheckoutView' }"
-                                data-attach-loading
-                                data-request-flash
-                                class="btn btn-lg btn-primary">
-                                Pay Now
-                            </a>
                         </div>
-                    {% elseif checkoutStep == 'complete' %}
-                        {% partial 'shop/checkout-step-complete' %}
                     {% endif %}
                 </div>
             </form>
+            {% if checkoutStep == 'payment' %}
+                <div id="shopPaymentForm" class="mt-4 pe-4">
+                    {% partial 'shop/payment-form' %}
+                </div>
+            {% endif %}
         </div>
         <div class="col-lg-5 col-12 d-none d-md-block border-start py-5">
             <div class="ps-4" id="shopCheckoutOrderSummary">

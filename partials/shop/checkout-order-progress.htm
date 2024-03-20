@@ -27,7 +27,7 @@
                     href="{{ 'shop/cart'|page }}"
                 {% elseif not currentFound %} href="javascript:;"
                     data-request="onAction"
-                    data-request-data="{ checkout_step: '{{ step }}' }"
+                    data-request-data="{ checkout_step: '{{ step }}', skip_validation: true }"
                     data-request-update="{ 'shop/checkout-view': '#shopCheckoutView' }"
                 {% endif %}
                 class="stepper-item {{ isCurrent ? 'current' : '' }} {{ not currentFound ? 'completed' }}"

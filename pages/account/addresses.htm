@@ -7,13 +7,13 @@ title = "Addresses"
 security = "user"
 redirect = "account/login"
 
-[profileDetails]
+[addressBook]
 
 [resources]
 vars[activeNavLink] = 'account'
 vars[activeSubLink] = 'addresses'
 ==
-{% set hasAddresses = profileDetails.addressBook.count > 0 %}
+{% set hasAddresses = addressBook.hasAddresses %}
 <div class="page-account">
     <div class="d-flex justify-content-between mb-4">
         <h2 class="mb-0">
