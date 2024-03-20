@@ -6,6 +6,7 @@ title = "Order"
 [payment]
 isDefault = 1
 ==
+{% set order = invoice.related %}
 {% if not order %}
     {% do abort(404) %}
 {% endif %}
