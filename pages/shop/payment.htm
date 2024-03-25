@@ -7,16 +7,19 @@ title = "Order"
 isDefault = 1
 ==
 {% set order = invoice.related %}
-{% if not order %}
+{% if not order or not order.order_number %}
     {% do abort(404) %}
 {% endif %}
+{% for method in paymentMethods %}
+    {{ method.renderPaymentScripts()|raw }}
+{% endfor %}
 <div class="container">
     <div class="row">
         <div class="col-lg-7 col-12 py-5">
             <div class="container">
 
                 <div class="mb-4">
-                    <p class="mb-1">Order #{{ order.orderNumber }}</p>
+                    <p class="mb-1">Order #{{ order.order_number }}</p>
                     <h2>Thank you for being a customer, {{ order.billing_first_name }}!</h2>
                 </div>
 

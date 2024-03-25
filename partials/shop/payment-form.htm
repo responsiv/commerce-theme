@@ -1,3 +1,4 @@
+{% set order = order|default(invoice.related) %}
 {% if order and order.payment_method %}
     {% set paymentMethod = order.payment_method %}
     {% if paymentMethod.hasPaymentForm %}
