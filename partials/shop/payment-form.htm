@@ -1,6 +1,5 @@
-{% set order = order|default(invoice.related) %}
-{% if order and order.payment_method %}
-    {% set paymentMethod = order.payment_method %}
+{% if invoice and invoice.payment_method %}
+    {% set paymentMethod = invoice.payment_method %}
     {% if paymentMethod.hasPaymentForm %}
         <div class="payment-form">
             {{ paymentMethod.renderPaymentForm(this.controller)|raw }}
@@ -14,7 +13,7 @@
                 <p>Payment method "{{ paymentMethod.name }}" has no payment form. Please pay and notify us.</p>
             {% endif %}
         </div>
-        {% if not order.is_final %}
+        {% if invoice.is_throwaway %}
             <div class="d-grid">
                 <button
                     class="btn btn-lg btn-dark btn-block"

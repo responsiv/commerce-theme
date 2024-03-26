@@ -10,6 +10,9 @@ vars[activeNavLink] = 'shop'
 js[] = 'controls/checkout-form.js'
 ==
 {% if not checkout.isCartEmpty %}
+    {% for method in allPaymentMethods %}
+        {{ method.renderPaymentScripts()|raw }}
+    {% endfor %}
     <div id="shopCheckoutView">
         {% partial 'shop/checkout-view' %}
     </div>

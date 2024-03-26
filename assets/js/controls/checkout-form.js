@@ -6,9 +6,18 @@
             this.listen('change', '[name=shipping_method]', this.onChangeShippingMethod);
             this.listen('change', '[name=payment_method]', this.onChangePaymentMethod);
             this.listen('change', '[name=address_book_id]', this.onChangeAddressBook);
+            addEventListener('pay:fetch-invoice', this.proxy(this.onFetchInvoiceHash));
         }
 
         disconnect() {
+            removeEventListener('pay:fetch-invoice', this.proxy(this.onFetchInvoiceHash));
+        }
+
+        onFetchInvoiceHash(event) {
+            event.detail.fetchFunc = async () => {
+                const data = await oc.request(this.element, 'onPrepareOrder', { async: true });
+                return data.invoice_hash;
+            };
         }
 
         onChangeAddressBook() {

@@ -10,10 +10,13 @@ vars[activeNavLink] = 'shop'
 js[] = 'controls/checkout-form.js'
 ==
 {% if not checkout.isCartEmpty %}
+    {% for method in allPaymentMethods %}
+        {{ method.renderPaymentScripts()|raw }}
+    {% endfor %}
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col-12 py-5">
-                <form id="checkoutForm" data-control="checkout-form">
+                <form id="checkoutForm" data-control="checkout-form" data-request-flash>
                     <input type="hidden" name="post_contact_details" value="true" />
                     <div class="pe-4 mb-4" id="shopCheckoutStepDetails">
                         {% partial 'shop/checkout-step-details' %}
