@@ -10,9 +10,11 @@ isDefault = 1
 {% if not order or not order.order_number %}
     {% do abort(404) %}
 {% endif %}
-{% for method in paymentMethods %}
-    {{ method.renderPaymentScripts()|raw }}
-{% endfor %}
+{% put scripts %}
+    {% for method in paymentMethods %}
+        {{ method.renderPaymentScripts()|raw }}
+    {% endfor %}
+{% endput %}
 <div class="container">
     <div class="row">
         <div class="col-lg-7 col-12 py-5">

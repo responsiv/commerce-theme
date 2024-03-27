@@ -10,9 +10,11 @@ vars[activeNavLink] = 'shop'
 js[] = 'controls/checkout-form.js'
 ==
 {% if not checkout.isCartEmpty %}
-    {% for method in allPaymentMethods %}
-        {{ method.renderPaymentScripts()|raw }}
-    {% endfor %}
+    {% put scripts %}
+        {% for method in allPaymentMethods %}
+            {{ method.renderPaymentScripts()|raw }}
+        {% endfor %}
+    {% endput %}
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col-12 py-5">
