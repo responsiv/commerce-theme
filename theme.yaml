@@ -3,3 +3,10 @@ description: 'Demo Commerce theme.'
 author: Responsiv Internet
 homepage: 'http://octobercms.com'
 code: ''
+require:
+    - RainLab.User
+    - RainLab.UserPlus
+    - RainLab.Location
+    - Responsiv.Shop
+    - Responsiv.Pay
+    - Responsiv.Currency
