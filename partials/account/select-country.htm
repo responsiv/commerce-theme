@@ -1,7 +1,7 @@
 [location]
 ==
 {% set countryId = countryId|default(post('country_id')) %}
-{% set stateControlSelector = stateControlSelector|default(post('state_control_selector', 'stateControlSelector')) %}
+{% set stateControlSelector = post('state_control_selector', stateControlSelector|default('stateControlSelector')) %}
 {% set countries = location.availableCountries|default([]) %}
 
 <select

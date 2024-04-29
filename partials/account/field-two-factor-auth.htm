@@ -66,7 +66,11 @@
         {% else %}
 
             {% if showConfirmation %}
-                <form method="post">
+                <form
+                    method="post"
+                    data-request="onConfirmTwoFactor"
+                    data-request-update="{ _self: true }"
+                    data-request-flash>
                     <p>
                         To enable two factor authentication, scan the following QR code using your phone's authenticator application or enter the setup key and provide the generated OTP code.
                     </p>
@@ -97,10 +101,7 @@
                                 <button
                                     class="btn btn-primary"
                                     data-attach-loading
-                                    data-request="onConfirmTwoFactor"
-                                    data-request-update="{ _self: true }"
-                                    data-request-flash
-                                    type="button">
+                                    type="submit">
                                     Confirm
                                 </button>
                                 <button
