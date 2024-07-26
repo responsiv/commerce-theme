@@ -2,7 +2,8 @@ name: Commerce
 description: 'Demo Commerce theme.'
 author: Responsiv Internet
 homepage: 'http://octobercms.com'
-code: ''
+code: Commerce
+authorCode: Responsiv
 require:
     - RainLab.User
     - RainLab.UserPlus
