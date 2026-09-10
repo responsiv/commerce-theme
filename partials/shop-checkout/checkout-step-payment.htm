@@ -42,3 +42,17 @@
         {{ __("No payment required — your store credit covers the full amount.") }}
     </div>
 {% endif %}
+
+<h4 class="mt-4">
+    {{ __("Order Notes") }}
+</h4>
+<div class="form-floating">
+    <textarea
+        name="user_notes"
+        class="form-control"
+        style="height: 100px"
+        placeholder="{{ __("Order Notes") }}">{{ order.user_notes }}</textarea>
+    <label>
+        {{ __("Delivery instructions or notes (optional)") }}
+    </label>
+</div>
